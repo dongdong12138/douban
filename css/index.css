@@ -1,0 +1,26 @@
+main {
+    height: calc(100vh - 50px); 
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+main > section {
+    display: none;
+}
+main > section:first-child {
+    display: block;
+}
+
+footer {
+    height: 50px;
+    display: flex;
+    align-item: center;
+    border-top: 1px solid #ccc;
+}
+footer > div {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
