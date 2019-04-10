@@ -72,7 +72,7 @@ function setData(data) {
             <div class="item">
             <a href="#">
                 <div class="cover">
-                    <img src="http://img1.doubanio.com/view/photo/s_ratio_poster/public/p1910813120.jpg" alt="">
+                    <img src="//img1.doubanio.com/view/photo/s_ratio_poster/public/p1910813120.jpg" alt="">
                 </div>
                 <div class="detail">
                     <h2>霸王别姬</h2>
