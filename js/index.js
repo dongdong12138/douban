@@ -23,20 +23,20 @@ $('main').on('scroll', function () {
     }, 300)
 })
 
-var app = {
-    init: function () {
-        this.a = 1
-        this.bind()
-        this.start()
-    },
-    bind: function () {
-        console.log('bind')
-    },
-    start: function () {
-        console.log('start')
-    }
-}
-app.init()
+// var app = {
+//     init: function () {
+//         this.a = 1
+//         this.bind()
+//         this.start()
+//     },
+//     bind: function () {
+//         console.log('bind')
+//     },
+//     start: function () {
+//         console.log('start')
+//     }
+// }
+// app.init()
 
 
 // ajax
