@@ -1,68 +1,67 @@
 main {
-    height: calc(100vh - 50px); 
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+  height: calc(100vh - 45px);
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 main > section {
-    display: none;
+  display: none;
+  padding: 10px;
 }
 main > section:first-child {
-    display: block;
+  display: block;
 }
-.item {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    padding-top: 10px;
+main .item {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
-.item>a{
-    display: block;
-    display: flex;
+main .item a {
+  display: block;
 }
-.item .cover,
-.item .cover img{
-    width: 70px;
+main .item img {
+  width: 70px;
+  display: inline-block;
+  vertical-align: top;
 }
-.item .detail {
-    flex: 1;
-    padding-left: 10px;
+main .detail {
+  padding-left: 10px;
 }
-.item .detail h2{
-    font-size: 16px;
+main .detail h2 {
+  font-size: 16px;
+  color: #333;
 }
-.item .detail .extra{
-    color: #999;
-    margin-top: 4px;
+main .detail p {
+  color: #999;
+  margin-top: 4px;
 }
-.item .detail .score{
-    color: #FF5722;
+main .detail .average {
+  color: #FF5722;
 }
-.loading {
-    text-align: center;
-    display: none;
+main .loading {
+  border: 1px solid red;
+  text-align: center;
+  display: none;
 }
-.loading .icon {
-    animation: turn 1s linear infinite;
+main .loading .icon {
+  display: inline-block;
+  animation: turn 1s linear infinite;
+
 }
 @keyframes turn {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {transform: rotate(0deg);}
+  100% {transfrom: rotate(360deg);}
 }
 
 footer {
-    height: 50px;
-    display: flex;
-    align-item: center;
-    border-top: 1px solid #ccc;
+  height: 44px;
+  display: flex;
 }
 footer > div {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  flex: 1;
+  border-top: 1px solid #ccc;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
