@@ -1,6 +1,7 @@
 var top250 = {
   init: function () {
     this.$element = $('.top250')
+    this.$main = $('main')
     this.isLoading = false
     this.index = 0
     this.isFinish = false
@@ -54,7 +55,7 @@ var top250 = {
     $movieArr.forEach(function (movie) {
       var $node = $(`
       <div class="item">
-        <a href="#">
+        <a href="#" style="border: 1px solid red;">
           <img src="http://img1.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg" alt="">
         </a>
         <div class="detail">
@@ -66,6 +67,7 @@ var top250 = {
         </div>
       </div>
     `)
+      $node.find('a').attr('href', movie.alt)
       $node.find('img').attr('src', movie.images.medium)
       $node.find('.detail h2').text(movie.title)
       $node.find('.average').text(movie.rating.average + '分')
@@ -86,12 +88,11 @@ var top250 = {
         })
         return castArr.join('、')
       })
-
       _this.$element.find('.container').append($node)
     })
   },
   isToBottom: function () {
-    return this.$element.find('.container') - 30 <= this.$element.scrollTop() + this.$element.height()
+    return this.$element.find('.container') <= this.$main.scrollTop() + this.$main.height() + 30
   }
 }
 var usBox = {
