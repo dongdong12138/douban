@@ -1,59 +1,58 @@
-// footer tab 点击 及 section 切换
-$('footer>div').on('click', function () {
-  var $index = $(this).index()
-  $(this).addClass('active').siblings().removeClass('active')
-  $('main>section').hide().eq($index).fadeIn()
-})
-
-// 发送 Ajax 请求
-var index = 0
-var isLoading = false
-start()
-
-// 页面滚到底部，再次发送 Ajax 请求
-var cloak
-$('main').on('scroll', function () {
-  if (cloak) {
-    clearTimeout(cloak)
-  }
-  cloak = setTimeout(function () {
-    if ($('.top250').height() - 30 <= $('main').scrollTop() + $('main').height()) {
-      start()
-    }
-  }, 300)
-})
-
-// function ...
-// 发送 ajax
-function start() {
-  if (isLoading) return
-  isLoading = true
-  $('.loading').show()
-  $.ajax({
-    url: "//api.douban.com/v2/movie/top250",
-    type: 'GET',
-    data: {
-      start: index,
-      count: 20
-    },
-    dataType: 'jsonp'
-  }).done(function (ret) {
-    console.log(ret)
-    index += 20
-    setData(ret)
-  }).fail(function (err) {
-    console.log(err)
-  }).always(function () {
-    isLoading = false
-    $('.loading').hide()
-  })
-}
-
-// 创建 dom 并添加到 html
-function setData(data) {
-  var $movieArr = data.subjects
-  $movieArr.forEach(function (movie) {
-    var $node = $(`
+var top250 = {
+  init: function () {
+    this.$element = $('.top250')
+    this.isLoading = false
+    this.index = 0
+    this.isFinish = false
+    this.bind()
+    this.start()
+  },
+  bind: function () {
+    var _this = this
+    console.log(1)
+    this.$element.on('scroll', function () {
+      console.log(2)
+        _this.start()
+    })
+  },
+  start: function () {
+    var _this = this
+    this.getData(function (data) {
+      _this.render(data)
+    })
+  },
+  getData: function (callback) {
+    var _this = this
+    if (_this.isLoading) return
+    _this.isLoading = true
+    _this.$element.find('.loading').show()
+    $.ajax({
+      url: "//api.douban.com/v2/movie/top250",
+      type: 'GET',
+      data: {
+        start: _this.index || 0,
+        count: 20
+      },
+      dataType: 'jsonp'
+    }).done(function (ret) {
+      console.log(ret)
+      _this.index += 20
+      if (_this.index >= ret.total) {
+        _this.isFinish = true
+      }
+      callback && callback(ret)
+    }).fail(function (err) {
+      console.log(err)
+    }).always(function () {
+      _this.isLoading = false
+      _this.$element.find('.loading').hide()
+    })
+  },
+  render: function (data) {
+    var _this = this
+    var $movieArr = data.subjects
+    $movieArr.forEach(function (movie) {
+      var $node = $(`
       <div class="item">
         <a href="#">
           <img src="http://img1.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg" alt="">
@@ -67,29 +66,66 @@ function setData(data) {
         </div>
       </div>
     `)
-    $node.find('img').attr('src', movie.images.medium)
-    $node.find('.detail h2').text(movie.title)
-    $node.find('.average').text(movie.rating.average + '分')
-    $node.find('.collect_count').text(movie.collect_count)
-    $node.find('.year').text(movie.year)
-    $node.find('.genres').text(movie.genres.join('、'))
-    $node.find('.directors').text(function () {
-      var directorArr = []
-      movie.directors.forEach(function (item) {
-        directorArr.push(item.name)
+      $node.find('img').attr('src', movie.images.medium)
+      $node.find('.detail h2').text(movie.title)
+      $node.find('.average').text(movie.rating.average + '分')
+      $node.find('.collect_count').text(movie.collect_count)
+      $node.find('.year').text(movie.year)
+      $node.find('.genres').text(movie.genres.join('、'))
+      $node.find('.directors').text(function () {
+        var directorArr = []
+        movie.directors.forEach(function (item) {
+          directorArr.push(item.name)
+        })
+        return directorArr.join('、')
       })
-      return directorArr.join('、')
-    })
-    $node.find('.casts').text(function () {
-      var castArr = []
-      movie.casts.forEach(function (item) {
-        castArr.push(item.name)
+      $node.find('.casts').text(function () {
+        var castArr = []
+        movie.casts.forEach(function (item) {
+          castArr.push(item.name)
+        })
+        return castArr.join('、')
       })
-      return castArr.join('、')
+
+      _this.$element.find('.container').append($node)
     })
-
-    $('.top250').append($node)
-  })
-
+  },
+  isToBottom: function () {
+    return this.$element.find('.container') - 30 <= this.$element.scrollTop() + this.$element.height()
+  }
+}
+var usBox = {
+  init: function () {
+    console.log('usBox ok')
+  },
+  bind: function () {},
+  start: function () {}
+}
+var search = {
+  init: function () {
+    console.log('search ok')
+  },
+  bind: function () {},
+  start: function () {}
 }
 
+var app = {
+  init: function () {
+    this.$tabs = $('footer>div')
+    this.$panels = $('main>section')
+    this.bind()
+    top250.init()
+    usBox.init()
+    search.init()
+  },
+  bind: function () {
+    var _this = this
+    this.$tabs.on('click', function () {
+      var $index = $(this).index()
+      $(this).addClass('active').siblings().removeClass('active')
+      _this.$panels.hide().eq($index).fadeIn()
+    })
+  }
+}
+
+app.init()

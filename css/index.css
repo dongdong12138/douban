@@ -38,19 +38,44 @@ main .detail .average {
   color: #FF5722;
 }
 main .loading {
-  border: 1px solid red;
   text-align: center;
   display: none;
+  border: 1px solid red;
 }
-main .loading .icon {
+main .loading > .icon {
   display: inline-block;
   animation: turn 1s linear infinite;
-
 }
 @keyframes turn {
   0% {transform: rotate(0deg);}
-  100% {transfrom: rotate(360deg);}
+  100% {transform: rotate(360deg);}
 }
+main .search-area {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+}
+main .search-area input {
+  background-color: #eee;
+  width: calc(100% - 50px);
+  padding: 8px;
+  border-radius: 2px;
+  box-shadow: none;
+}
+main .search-area button {
+  background: #FF5722;
+  color: #fff;
+  width: 44px;
+  height: 30px;
+  padding: 8px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 12px;
+}
+main .search-result {}
 
 footer {
   height: 44px;
