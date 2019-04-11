@@ -40,7 +40,6 @@ main .detail .average {
 main .loading {
   text-align: center;
   display: none;
-  border: 1px solid red;
 }
 main .loading > .icon {
   display: inline-block;
